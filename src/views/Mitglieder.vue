@@ -13,15 +13,16 @@
 
     <!-- Tabelle -->
     <table class="w-full table-auto border-collapse">
-      <thead>
-      <tr class="bg-gray-200 text-left">
-        <th v-for="spalte in spalten" :key="spalte.key" class="p-2 border cursor-pointer hover:bg-gray-300" @click="sortiere(spalte.key)">
-          {{ spalte.label }}
-          <span v-if="sortKey === spalte.key">🔼</span>
-          <span v-else-if="sortKey === '-' + spalte.key">🔽</span>
-        </th>
-      </tr>
-      </thead>
+<thead>
+  <tr class="bg-gray-200 text-left">
+    <th v-for="spalte in spalten" :key="spalte.key" class="p-2 border cursor-pointer hover:bg-gray-300" @click="sortiere(spalte.key)">
+      {{ spalte.label }}
+      <span v-if="sortKey === spalte.key">🔼</span>
+      <span v-else-if="sortKey === '-' + spalte.key">🔽</span>
+    </th>
+    <th class="p-2 border text-center">✏️</th> <!-- Neue Spalte für Bearbeiten -->
+  </tr>
+</thead>
       <tbody>
       <tr v-for="mitglied in gefilterteUndSortierteMitglieder" :key="mitglied.vorname + mitglied.nachname" class="hover:bg-gray-100">
         <td class="p-2 border">{{ mitglied.vorname }}</td>
@@ -30,10 +31,46 @@
         <td class="p-2 border">{{ mitglied.alter }}</td>
         <td class="p-2 border">{{ mitglied.tageBisGeburtstag }}</td>
         <td class="p-2 border">{{ mitglied.gruppe }}</td>
+	<td class="p-2 border text-center">
+  	<button @click="bearbeiten(mitglied)" class="hover:text-blue-700 text-xl">✏️</button>
+	</td>
       </tr>
       </tbody>
     </table>
   </div>
+
+<div v-if="editMitglied" class="mt-6 p-4 border rounded shadow bg-gray-50">
+  <h3 class="text-lg font-bold mb-2">🛠️ Mitglied bearbeiten</h3>
+  <form @submit.prevent="updateMitglied">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-semibold">Vorname:</label>
+        <input v-model="editMitglied.vorname" class="border p-2 w-full rounded" required />
+      </div>
+      <div>
+        <label class="block font-semibold">Nachname:</label>
+        <input v-model="editMitglied.nachname" class="border p-2 w-full rounded" required />
+      </div>
+      <div>
+        <label class="block font-semibold">Geburtstag:</label>
+        <input v-model="editMitglied.geburtstag" type="date" class="border p-2 w-full rounded" required />
+      </div>
+      <div>
+        <label class="block font-semibold">Gruppe:</label>
+        <select v-model="editMitglied.gruppe" class="border p-2 w-full rounded" required>
+          <option value="1">Gruppe 1</option>
+          <option value="2">Gruppe 2</option>
+        </select>
+      </div>
+    </div>
+    <div class="mt-4">
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">💾 Speichern</button>
+      <button @click="editMitglied = null" type="button" class="ml-2 text-gray-600 hover:underline">Abbrechen</button>
+    </div>
+  </form>
+</div>
+
+
 </template>
 
 <script setup>
@@ -132,4 +169,11 @@ function sortiere(key) {
 function formatDatum(dateStr) {
   return new Date(dateStr).toLocaleDateString('de-DE')
 }
+
+const editMitglied = ref(null)
+
+function bearbeiten(mitglied) {
+  editMitglied.value = { ...mitglied }
+}
+
 </script>
