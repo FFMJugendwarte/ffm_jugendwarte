@@ -10,6 +10,11 @@
       "StackName": "amplify-views-dev-1c642",
       "StackId": "arn:aws:cloudformation:eu-central-1:826164438588:stack/amplify-views-dev-1c642/beda7270-131a-11f0-8343-06db7272cec1",
       "AmplifyAppId": "d28uwsmbh95fw5"
+    },
+    "categories": {
+      "auth": {
+        "views5ba526c9": {}
+      }
     }
   }
 }
