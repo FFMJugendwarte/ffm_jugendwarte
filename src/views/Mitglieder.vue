@@ -37,13 +37,32 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+
+import { ref, onMounted, computed } from 'vue' // 💡 Import hinzugefügt!
 
 const mitglieder = ref([])
 
 onMounted(async () => {
-  const res = await fetch('https://szu69fnk74.execute-api.eu-central-1.amazonaws.com/mitglieder')
-  mitglieder.value = await res.json()
+  try {
+    const res = await fetch('https://deine-api.amazonaws.com/mitglieder')
+    mitglieder.value = await res.json()
+  } catch (error) {
+    console.warn("API nicht erreichbar – benutze lokale Testdaten")
+    mitglieder.value = [
+      {
+        vorname: "Lena",
+        nachname: "Schmidt",
+        geburtstag: "2010-07-14",
+        gruppe: 1
+      },
+      {
+        vorname: "Tim",
+        nachname: "Müller",
+        geburtstag: "2009-05-20",
+        gruppe: 2
+      }
+    ]
+  }
 })
 
 
@@ -74,6 +93,7 @@ const berechneteMitglieder = computed(() =>
 
       return {
         ...m,
+        gruppe: parseInt(m.gruppe),
         alter,
         tageBisGeburtstag
       }
