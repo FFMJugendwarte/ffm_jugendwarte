@@ -4,6 +4,7 @@
     <ul class="flex space-x-6 text-gray-700">
       <li><router-link to="/" class="hover:text-blue-500">Start</router-link></li>
       <li><router-link to="/mitglieder" class="hover:text-blue-500">Mitglieder</router-link></li>
+      <li><router-link to="/neu" class="hover:text-blue-500">➕ Neues Mitglied</router-link></li>
     </ul>
   </nav>
 </template>
