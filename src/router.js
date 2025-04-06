@@ -3,7 +3,8 @@ import Home from './views/Home.vue'
 import Mitglieder from './views/Mitglieder.vue'
 import MitgliedHinzufuegen from './views/MitgliedHinzufuegen.vue'
 import LoginView from './views/LoginView.vue'
-import { Auth } from 'aws-amplify' // ⬅ für Auth-Check (optional)
+import { Auth } from 'aws-amplify/auth'
+
 
 // Routen definieren
 const routes = [
