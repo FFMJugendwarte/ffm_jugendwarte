@@ -1,4 +1,3 @@
-
 <template>
   <div class="p-6">
     <h2 class="text-2xl font-bold text-blue-700 mb-4">👥 Mitgliederliste</h2>
@@ -29,7 +28,17 @@
       <tr v-for="mitglied in gefilterteUndSortierteMitglieder" :key="mitglied.id" class="hover:bg-gray-100">
         <td class="p-2 border">{{ mitglied.vorname }}</td>
         <td class="p-2 border">{{ mitglied.nachname }}</td>
-        <td class="p-2 border">{{ formatDatum(mitglied.geburtstag) }}</td>
+        <td
+            class="p-2 border flex items-center gap-2"
+            :class="{
+              'text-green-600 font-semibold': mitglied.geburtstagsStatus === 'naht',
+              'text-red-600 font-semibold': mitglied.geburtstagsStatus === 'gerade'
+            }"
+        >
+          <span>{{ formatDatum(mitglied.geburtstag) }}</span>
+          <span v-if="mitglied.geburtstagsStatus === 'naht'">🎉</span>
+          <span v-else-if="mitglied.geburtstagsStatus === 'gerade'">🎂</span>
+        </td>
         <td class="p-2 border">{{ mitglied.alter }}</td>
         <td class="p-2 border">{{ mitglied.tageBisGeburtstag }}</td>
         <td class="p-2 border">{{ mitglied.gruppe }}</td>
@@ -43,10 +52,11 @@
       </tbody>
     </table>
 
-    <!-- Bearbeiten Modal -->
+    <!-- Bearbeiten-Modal -->
     <div v-if="editMitglied" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg">
-        <h3 class="text-lg font-bold mb-2">🛠️ Mitglied bearbeiten</h3>
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-xl relative">
+        <button @click="editMitglied = null" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">✖</button>
+        <h3 class="text-lg font-bold mb-4">🛠️ Mitglied bearbeiten</h3>
         <form @submit.prevent="updateMitglied">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -69,7 +79,7 @@
               </select>
             </div>
           </div>
-          <div class="mt-4 text-right">
+          <div class="mt-6 text-right">
             <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">💾 Speichern</button>
             <button @click="editMitglied = null" type="button" class="ml-2 text-gray-600 hover:underline">Abbrechen</button>
           </div>
@@ -117,7 +127,16 @@ const berechneteMitglieder = computed(() =>
       const naechsterGeb = new Date(today.getFullYear(), geb.getMonth(), geb.getDate())
       if (naechsterGeb < today) naechsterGeb.setFullYear(today.getFullYear() + 1)
       const tageBisGeburtstag = Math.ceil((naechsterGeb - today) / (1000 * 60 * 60 * 24))
-      return { ...m, gruppe: parseInt(m.gruppe), alter, tageBisGeburtstag }
+      const geburtstagsStatus =
+          tageBisGeburtstag <= 28 ? 'naht' :
+              tageBisGeburtstag > 337 ? 'gerade' : ''
+      return {
+        ...m,
+        gruppe: parseInt(m.gruppe),
+        alter,
+        tageBisGeburtstag,
+        geburtstagsStatus
+      }
     })
 )
 
