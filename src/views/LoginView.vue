@@ -39,7 +39,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { signIn, completeNewPassword } from 'aws-amplify/auth' // ✅ modular für v6
+import { signIn, confirmSignIn, updatePassword } from '@aws-amplify/auth' // ✅ V6-kompatibel
 
 const email = ref('')
 const password = ref('')
@@ -48,20 +48,16 @@ const router = useRouter()
 
 const handleLogin = async () => {
   try {
-    const response = await signIn({
-      username: email.value,
-      password: password.value
-    })
+    const response = await signIn({ username: email.value, password: password.value })
 
-    // Cognito fordert Passwortänderung?
     if (response.challengeName === 'NEW_PASSWORD_REQUIRED') {
-      // z. B. gleiches Passwort nochmal setzen
-      await completeNewPassword(response, password.value)
+      // V6: Passwortänderung per updatePassword
+      await updatePassword({ user: response, newPassword: password.value })
     }
 
-    // Weiterleitung bei Erfolg
     router.push('/mitglieder')
   } catch (error) {
+    console.error(error)
     errorMessage.value = error.message || 'Login fehlgeschlagen'
   }
 }
