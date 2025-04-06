@@ -44,7 +44,7 @@ const mitglieder = ref([])
 
 onMounted(async () => {
   try {
-    const res = await fetch('https://deine-api.amazonaws.com/mitglieder')
+    const res = await fetch('https://szu69fnk74.execute-api.eu-central-1.amazonaws.com/mitglieder')
     mitglieder.value = await res.json()
   } catch (error) {
     console.warn("API nicht erreichbar – benutze lokale Testdaten")
