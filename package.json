@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^11.0.2",
+    "aws-amplify": "^6.14.1",
     "vue": "^3.4.0",
     "vue-router": "^4.2.0"
   },
