@@ -7,24 +7,24 @@
         <div>
           <label class="block text-sm font-medium">E-Mail</label>
           <input
-            type="email"
-            v-model="email"
-            required
-            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring"
+              type="email"
+              v-model="email"
+              required
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring"
           />
         </div>
         <div>
           <label class="block text-sm font-medium">Passwort</label>
           <input
-            type="password"
-            v-model="password"
-            required
-            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring"
+              type="password"
+              v-model="password"
+              required
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring"
           />
         </div>
         <button
-          type="submit"
-          class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+            type="submit"
+            class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
         >
           Einloggen
         </button>
@@ -38,8 +38,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Auth } from 'aws-amplify'
 import { useRouter } from 'vue-router'
+import { signIn } from 'aws-amplify/auth' // ✅ Funktionaler Import
 
 const email = ref('')
 const password = ref('')
@@ -48,8 +48,8 @@ const router = useRouter()
 
 const handleLogin = async () => {
   try {
-    await Auth.signIn(email.value, password.value)
-    router.push('/') // Weiterleitung nach Login
+    await signIn({ username: email.value, password: password.value }) // ✅ direkt aufrufen
+    router.push('/')
   } catch (error) {
     errorMessage.value = error.message || 'Login fehlgeschlagen'
   }
