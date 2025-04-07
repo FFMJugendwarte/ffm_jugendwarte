@@ -12,10 +12,10 @@
   </div>
 </template>
 
-<script setup>
-import { signInWithRedirect } from 'aws-amplify/auth'
+import { startOAuth2Flow } from 'aws-amplify/auth'
 
 const login = () => {
-  signInWithRedirect() // leitet auf Hosted UI weiter
+  startOAuth2Flow() // öffnet die Hosted UI
 }
+
 </script>
