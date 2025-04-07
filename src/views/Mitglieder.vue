@@ -35,9 +35,11 @@
               'text-red-600 font-semibold': mitglied.geburtstagsStatus === 'gerade'
             }"
         >
+          <div class="flex items-center gap-2 justify-start">
           <span>{{ formatDatum(mitglied.geburtstag) }}</span>
           <span v-if="mitglied.geburtstagsStatus === 'naht'">🎉</span>
           <span v-else-if="mitglied.geburtstagsStatus === 'gerade'">🎂</span>
+          </div>
         </td>
         <td class="p-2 border">{{ mitglied.alter }}</td>
         <td class="p-2 border">{{ mitglied.tageBisGeburtstag }}</td>
