@@ -14,3 +14,5 @@ Amplify.configure({
     }
   }
 })
+
+export default awsmobile;
