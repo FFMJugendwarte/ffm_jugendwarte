@@ -29,7 +29,7 @@
         <td class="p-2 border">{{ mitglied.vorname }}</td>
         <td class="p-2 border">{{ mitglied.nachname }}</td>
         <td
-            class="p-2 border flex items-center gap-2"
+            class="p-2 border"
             :class="{
               'text-green-600 font-semibold': mitglied.geburtstagsStatus === 'naht',
               'text-red-600 font-semibold': mitglied.geburtstagsStatus === 'gerade'
