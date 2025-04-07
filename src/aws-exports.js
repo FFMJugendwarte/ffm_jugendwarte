@@ -1,18 +1,15 @@
-import { Amplify } from 'aws-amplify'
-
-Amplify.configure({
-  Auth: {
-    region: 'eu-central-1',
-    userPoolId: 'eu-central-1_R8HECeYpb', // <- aus dem Screenshot
-    userPoolWebClientId: '615b0u7h0d788m791ru47jpgcd', // <- Client ID ohne Secret
-    oauth: {
-      domain: 'https://eu-central-1r8heceypb.auth.eu-central-1.amazoncognito.com/', // <- dein Domainname
-      redirectSignIn: 'https://ffmjw.leitnersoft.com/',
-      redirectSignOut: 'https://ffmjw.leitnersoft.com/',
-      responseType: 'code',
-      scope: ['email', 'openid', 'profile']
-    }
+const awsmobile = {
+  aws_project_region: 'eu-central-1',
+  aws_cognito_region: 'eu-central-1',
+  aws_user_pools_id: 'eu-central-1_R8HECeYpb',
+  aws_user_pools_web_client_id: '615b0u7h0d788m791ru47jpgcd',
+  oauth: {
+    domain: 'eu-central-1r8heceypb.auth.eu-central-1.amazoncognito.com',
+    redirectSignIn: 'https://ffmjw.leitnersoft.com/',
+    redirectSignOut: 'https://ffmjw.leitnersoft.com/',
+    responseType: 'code',
+    scope: ['email', 'openid', 'profile']
   }
-})
+};
 
 export default awsmobile;
