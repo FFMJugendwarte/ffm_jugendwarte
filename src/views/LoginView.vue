@@ -13,10 +13,9 @@
 </template>
 
 <script setup>
-import { signIn, signOut } from 'aws-amplify/auth'
-import { getCurrentUser } from 'aws-amplify/auth'
+import { signInWithRedirect } from 'aws-amplify/auth'
 
 const login = () => {
-  Auth.federatedSignIn() // Öffnet Hosted UI
+  signInWithRedirect() // leitet auf Hosted UI weiter
 }
 </script>
