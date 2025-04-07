@@ -2,11 +2,7 @@
   <nav class="flex items-center justify-between bg-blue-600 p-4 text-white">
     <router-link to="/" class="text-lg font-bold hover:underline">FFM Jugendwarte</router-link>
     <div class="space-x-4">
-      <router-link
-        v-if="isAuthenticated"
-        to="/mitglieder"
-        class="hover:underline"
-      >
+      <router-link v-if="isAuthenticated" to="/mitglieder" class="hover:underline">
         Mitglieder
       </router-link>
       <router-link
@@ -23,11 +19,7 @@
       >
         Logout
       </button>
-      <router-link
-        v-else
-        to="/login"
-        class="hover:underline"
-      >
+      <router-link v-else to="/login" class="hover:underline">
         Login
       </router-link>
     </div>
@@ -36,24 +28,26 @@
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { signOut, fetchAuthSession } from 'aws-amplify/auth'
 
 const router = useRouter()
 const route = useRoute()
 
-const logout = async () => {
-  await signOut()
-  router.push('/login')
-}
+const isAuthenticated = ref(false)
 
-// Zustand der Authentifizierung prüfen
-const isAuthenticated = computed(async () => {
+onMounted(async () => {
   try {
     const session = await fetchAuthSession()
-    return session.tokens !== undefined
+    isAuthenticated.value = session.tokens !== undefined
   } catch {
-    return false
+    isAuthenticated.value = false
   }
 })
+
+const logout = async () => {
+  await signOut()
+  isAuthenticated.value = false
+  router.push('/login')
+}
 </script>
