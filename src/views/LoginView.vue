@@ -13,7 +13,8 @@
 </template>
 
 <script setup>
-import { Auth } from 'aws-amplify'
+import { signIn, signOut } from 'aws-amplify/auth'
+import { getCurrentUser } from 'aws-amplify/auth'
 
 const login = () => {
   Auth.federatedSignIn() // Öffnet Hosted UI
