@@ -12,10 +12,10 @@
   </div>
 </template>
 
-import { startOAuth2Flow } from 'aws-amplify/auth'
-
 <script setup>
 
+  import { startOAuth2Flow } from 'aws-amplify/auth'
+  
   const login = () => {
   startOAuth2Flow() // öffnet die Hosted UI
 }
