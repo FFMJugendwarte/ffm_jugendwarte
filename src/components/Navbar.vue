@@ -4,7 +4,6 @@
     <div class="space-x-4">
       <router-link to="/" class="hover:underline">Start</router-link>
       <router-link to="/mitglieder" class="hover:underline">Mitglieder</router-link>
-      <!-- 🔁 Nur anzeigen, wenn auf Mitgliederseite -->
       <router-link
         v-if="route.path === '/mitglieder'"
         to="/neu"
@@ -19,13 +18,13 @@
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
-import { Auth } from 'aws-amplify'
+import { signOut } from 'aws-amplify/auth'
 
 const router = useRouter()
 const route = useRoute()
 
 const logout = async () => {
-  await Auth.signOut()
+  await signOut()
   router.push('/login')
 }
 </script>
