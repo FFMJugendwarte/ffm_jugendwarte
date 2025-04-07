@@ -13,10 +13,9 @@
 </template>
 
 <script setup>
-import { getUrl } from 'aws-amplify/auth'
+import { signInWithRedirect } from '@aws-amplify/auth'
 
-const login = async () => {
-  const { url } = await getUrl()
-  window.location.href = url
+const login = () => {
+  signInWithRedirect() // 🔐 Öffnet die Hosted UI
 }
 </script>
