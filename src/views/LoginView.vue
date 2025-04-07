@@ -13,9 +13,10 @@
 </template>
 
 <script setup>
-import { Auth } from 'aws-amplify'
+import { getUrl } from 'aws-amplify/auth'
 
-const login = () => {
-  Auth.federatedSignIn()
+const login = async () => {
+  const { url } = await getUrl()
+  window.location.href = url
 }
 </script>
