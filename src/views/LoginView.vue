@@ -13,11 +13,9 @@
 </template>
 
 <script setup>
+import { Auth } from 'aws-amplify'
 
-  import { startOAuth2Flow } from 'aws-amplify/auth'
-  
-  const login = () => {
-  startOAuth2Flow() // öffnet die Hosted UI
+const login = () => {
+  Auth.federatedSignIn()
 }
-  
 </script>
