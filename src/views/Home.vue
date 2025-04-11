@@ -4,7 +4,7 @@
       🎉 Willkommen bei den Jugendwarten FF Manching
     </h1>
     <p class="text-lg sm:text-xl text-gray-700">
-      Diese App hilft euch, Mitglieder zu verwalten.
+      Diese App hilft uns, Mitglieder zu verwalten.
     </p>
   </section>
 </template>
