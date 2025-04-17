@@ -1,9 +1,16 @@
-
 <template>
-  <Navbar />
-  <router-view />
+  <div class="min-h-screen pb-16 flex flex-col">
+    <!-- Seiteninhalt -->
+    <RouterView class="flex-grow" />
+
+    <!-- Bottom Navigation -->
+    <MobileBottomNav v-if="isMobile" />
+  </div>
 </template>
 
 <script setup>
-import Navbar from './components/Navbar.vue'
+import { useScreen } from '@/composables/useScreen'
+import MobileBottomNav from '@/components/MobileBottomNav.vue'
+
+const { isMobile } = useScreen()
 </script>
